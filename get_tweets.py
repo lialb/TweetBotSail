@@ -1,28 +1,32 @@
-import tweepy
+
 import json
 import twitter
 import pprint
 import csv
 import re
+import tweepy
 
-with open('api_keys.json') as f:
+with open('api_keys_copy.json') as f:
     api_keys = json.load(f)
 
-api = tweepy.API(auth)
+auth = tweepy.OAuthHandler(api_keys['key'], api_keys['secret'])
+auth.set_access_token(api_keys['access_token'], api_keys['access_secret'])
 
-api = twitter.Api(consumer_key=api_keys['key'],
-                  consumer_secret=api_keys['secret'],
-                  access_token_key=api_keys['access_token'],
-                  access_token_secret=api_keys['access_secret'])
+api = twitter.Api(consumer_key = api_keys['key'],
+                  consumer_secret = api_keys['secret'],
+                  access_token_key = api_keys['access_token'],
+                  access_token_secret = api_keys['access_secret'])
 
 all_statuses = []
 #get statuses, will get 200 at a time, let's go fetch 2000
-statuses = api.GetUserTimeline(screen_name="realDonaldTrump", exclude_replies=True, trim_user=True, include_rts=False, count=200)
+statuses = api.GetUserTimeline(screen_name = "realDonaldTrump", exclude_replies = True,
+trim_user = True, include_rts = False, count = 200)
 all_statuses.extend(statuses)
 pprint.pprint(statuses)
 
 for i in range(0, 9):
-    statuses = api.GetUserTimeline(screen_name='realDonaldTrump', exclude_replies=True, trim_user=True, include_rts=False, count=200, max_id=statuses[-1].id)
+    statuses = api.GetUserTimeline(screen_name = 'realDonaldTrump', exclude_replies=True,
+    trim_user = True, include_rts = False, count = 200, max_id = statuses[-1].id)
     # pprint.pprint(statuses)
     all_statuses.extend(statuses)
 
