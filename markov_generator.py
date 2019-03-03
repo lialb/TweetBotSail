@@ -42,11 +42,11 @@ def generate_tweet(csv):
     for i in range(100):
         if (len(ret_str) + len(word + ' ')) > TWEET_LENGTH:
             break
-        ret_str += word + ' ' 
+        ret_str += word + ' '
         clean_word = clean_string(word)
         if (word_chain[clean_word] == []):
             break
         word = random.choice(word_chain[clean_word])
     return ret_str
 
-print(generate_tweet('trump_tweets.csv'))
+#print(generate_tweet('trump_tweets.csv'))

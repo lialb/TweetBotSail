@@ -1,5 +1,6 @@
 import tweepy
 import json
+from markov_generator import generate_tweet
 '''
 This class is to make the actual tweets from the AI generated tweets. It parses
 through the json containing the keys and access tokens.
@@ -18,4 +19,14 @@ api = tweepy.API(auth)
 user = api.me()
 print(user.name)
 
-api.update_status('Fake News! Sad!')
+tweet = generate_tweet('trump_tweets.csv')
+api.update_status(tweet)
+
+
+import time
+count = 0
+while count < 10:
+    tweet = generate_tweet('trump_tweets.csv')
+    api.update_status(tweet)
+    time.sleep(10)
+    count += 1
