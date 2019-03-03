@@ -3,7 +3,7 @@ Make your own tweet bot
 
 _Taught by Albert Li and Theodore Li_
 
-### Prequisites: 
+### Prerequisites: 
 - Github
 - Python 3.X
 - An editor for Python (Atom recommended)
