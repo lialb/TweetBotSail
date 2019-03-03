@@ -19,14 +19,14 @@ api = tweepy.API(auth)
 user = api.me()
 print(user.name)
 
-tweet = generate_tweet('trump_tweets.csv')
+tweet = generate_tweet('kenm_tweets.csv')
 api.update_status(tweet)
 
 
 import time
 count = 0
 while count < 10:
-    tweet = generate_tweet('trump_tweets.csv')
+    tweet = generate_tweet('kenm_tweets.csv')
     api.update_status(tweet)
     time.sleep(10)
     count += 1
