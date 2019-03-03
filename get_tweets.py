@@ -1,7 +1,7 @@
 import tweepy
 import json
 
-with open('api_keys.json') as f:
+with open('api_keys_copy.json') as f:
     api_keys = json.load(f)
 
 auth = tweepy.OAuthHandler(api_keys['key'], api_keys['secret'])
