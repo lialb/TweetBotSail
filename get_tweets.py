@@ -5,6 +5,7 @@ import pprint
 import csv
 import re
 import tweepy
+import argparse
 
 def generate_csv(tweet_handle, writeto):
 
@@ -40,4 +41,10 @@ def generate_csv(tweet_handle, writeto):
             writer.writerow({'id': status.id, 'text': status.text, 'source': clean_source})
     print("Your status has " + str(len(all_statuses)) + " items ")
 
-generate_csv("horseysurprise", "kenm_tweets.csv")
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("handle", type=str, help="The twitter user handle to get tweets from")
+    parser.add_argument("output", type=str, help="The output file to write to")
+    args = parser.parse_args()
+    generate_csv(args.handle, args.output)
+
