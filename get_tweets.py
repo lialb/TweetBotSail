@@ -9,7 +9,7 @@ import argparse
 
 def generate_csv(tweet_handle, writeto):
 
-    with open('api_keys.json') as f:
+    with open('api_keys_copy.json') as f:
         api_keys = json.load(f)
 
     api = twitter.Api(consumer_key=api_keys['key'],
