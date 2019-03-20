@@ -1,50 +1,44 @@
+import requests
+from requests_oauthlib import OAuth1
 
 import json
-import twitter
-import pprint
 import csv
-import re
-import tweepy
-import argparse
+import pprint
+from markov_generator import generate_tweet
 
-def generate_csv(tweet_handle, writeto):
+pp = pprint.PrettyPrinter()
+with open('api_keys.json') as data_file:
+    api_keys = json.load(data_file)
 
-    with open('api_keys_copy.json') as f:
-        api_keys = json.load(f)
+# Authentication for Twitter loaded into OAuth1 object
+auth = OAuth1(api_keys['key'], api_keys['secret'], api_keys['access_token'], api_keys['access_secret'])
 
-    api = twitter.Api(consumer_key=api_keys['key'],
-                      consumer_secret=api_keys['secret'],
-                      access_token_key=api_keys['access_token'],
-                      access_token_secret=api_keys['access_secret'])
+def get_tweets(tweet_handle, writeto):
 
-    all_statuses = []
-    #get statuses, will get 200 at a time, let's go fetch 2000
-    statuses = api.GetUserTimeline(screen_name=tweet_handle, exclude_replies=True, trim_user=True, include_rts=False, count=200)
-    all_statuses.extend(statuses)
-    pprint.pprint(statuses)
-
-    for i in range(0, 9):
-        statuses = api.GetUserTimeline(screen_name=tweet_handle, exclude_replies=True, trim_user=True, include_rts=False, count=200, max_id=statuses[-1].id)
-        # pprint.pprint(statuses)
-        all_statuses.extend(statuses)
+    url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
+    params = {
+        'screen_name': tweet_handle,
+        'tweet_mode': 'extended',
+        'count': '200',
+        'include_rts': False,
+        'exclude_replies': True,
+        'trim_user': True,
+    }
 
     with open(writeto, 'w') as csvfile:
         fieldnames = ['id', 'text', 'source']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
         writer.writeheader()
-        for status in all_statuses:
-            #sources come in as "<a href=""http://twitter.com"" rel=""nofollow"">Twitter Web Client</a>" so let's just get
-            #the good stuff out
-            cleaner_source = re.search("\>.+\<", status.source).group(0)
-            clean_source = cleaner_source[1: -1]
-            writer.writerow({'id': status.id, 'text': status.text, 'source': clean_source})
-    print("Your status has " + str(len(all_statuses)) + " items ")
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("handle", type=str, help="The twitter user handle to get tweets from")
-    parser.add_argument("output", type=str, help="The output file to write to")
-    args = parser.parse_args()
-    generate_csv(args.handle, args.output)
+        r = requests.get(url, auth=auth, params=params)
+        for status in r.json():
+            writer.writerow({'id': status['id'], 'text': status['full_text'], 'source': status['source']})
 
+        for i in range(9):
+            params['max_id'] = r.json()[-1]['id']
+            r = requests.get(url, auth=auth, params=params)
+            print(len(r.json()))
+            for status in r.json():
+                writer.writerow({'id': status['id'], 'text': status['full_text'], 'source': status['source']})
+
+# get_tweets('realdonaldtrump', 'trumpsays.csv')
