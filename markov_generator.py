@@ -26,7 +26,9 @@ def get_markov_dict(library):
 
 def clean_string(input):
     input = input.replace('&amp', '&')
+    input = input.replace('&;', ';')
     input = input.replace('@', '')
+    input = input.replace('#', '')
     return input;
 
 def get_tweets_csv(csv):
@@ -47,4 +49,4 @@ def generate_tweet(csv):
         word = random.choice(word_chain[clean_word])
     return ret_str
 
-print(generate_tweet('trumpsays.csv'))
+# print(generate_tweet('csv/obama.csv'))

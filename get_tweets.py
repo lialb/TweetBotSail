@@ -41,4 +41,4 @@ def get_tweets(tweet_handle, writeto):
             for status in r.json():
                 writer.writerow({'id': status['id'], 'text': status['full_text'], 'source': status['source']})
 
-# get_tweets('realdonaldtrump', 'trumpsays.csv')
+get_tweets('neiltyson', 'csv/ndt.csv')
