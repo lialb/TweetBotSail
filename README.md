@@ -6,7 +6,7 @@ _Taught by Albert Li and Theodore Li_
 ### Link to Slides: https://bit.ly/2HbVg8F
 
 
-### This repository contains the solutions. To access the starter code, go here: https://github.com/yiliang6/TweetBotStarter
+### This repository contains the full working Twitter bot. To access the starter code, go here: https://github.com/yiliang6/TweetBotStarter
 
 
 ## How to use:
