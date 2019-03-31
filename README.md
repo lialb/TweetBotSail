@@ -8,6 +8,9 @@ _Taught by Albert Li and Theodore Li_
 
 ### This repository contains the full working Twitter bot. To access the starter code, go here: https://github.com/yiliang6/TweetBotStarter
 
+## Description:
+
+This repository contains a full twitter bot. This allows tweeting from the command line, tweeting at a schedule, getting tweets from others, emulating tweets from others, etc.
 
 ## How to use:
 
