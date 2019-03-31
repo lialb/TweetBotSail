@@ -24,8 +24,8 @@ def get_tweets(tweet_handle, writeto):
         'exclude_replies': True,
         'trim_user': True,
     }
-
-    with open(writeto, 'w') as csvfile:
+    #for non-Windows users, remove the encoding='utf-8'
+    with open(writeto, 'w', encoding='utf-8') as csvfile:
         fieldnames = ['id', 'text', 'source']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -41,4 +41,4 @@ def get_tweets(tweet_handle, writeto):
             for status in r.json():
                 writer.writerow({'id': status['id'], 'text': status['full_text'], 'source': status['source']})
 
-get_tweets('neiltyson', 'csv/ndt.csv')
+get_tweets('neiltyson', 'neiltyson.csv')
