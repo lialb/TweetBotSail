@@ -1,6 +1,7 @@
 import random
 import pandas as pd
 import string
+import argparse
 
 TWEET_LENGTH = 280
 
@@ -35,8 +36,8 @@ def get_tweets_csv(csv):
     df = pd.read_csv(csv)
     return df['text'].tolist()
 
-def generate_tweet(csv):
-    begin_words, word_chain = get_markov_dict(get_tweets_csv(csv))
+def generate_tweet(csv_file):
+    begin_words, word_chain = get_markov_dict(get_tweets_csv(csv_file))
     word = random.choice(begin_words)
     ret_str = ''
     for i in range(100):
@@ -49,4 +50,11 @@ def generate_tweet(csv):
         word = random.choice(word_chain[clean_word])
     return ret_str
 
-# print(generate_tweet('csv/obama.csv'))
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('csv_file', type=str, help='the csv file to make tweets using')
+    args = parser.parse_args()
+    generate_tweet(args.csv_file)
+
+#print(generate_tweet('csv/obama.csv'))
