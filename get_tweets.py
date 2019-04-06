@@ -47,7 +47,6 @@ def get_tweets(tweet_handle, writeto):
             for status in r.json():
                 writer.writerow({'id': status['id'], 'text': status['full_text'], 'source': status['source']})
 
-# get_tweets('neiltyson', 'csv/ndt.csv')
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('tweet_handle', type=str, help='the tweet handle to get tweets from, case insensitive and without the @')
