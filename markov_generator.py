@@ -36,8 +36,8 @@ def get_tweets_csv(csv):
     df = pd.read_csv(csv)
     return df['text'].tolist()
 
-def generate_tweet(csv):
-    begin_words, word_chain = get_markov_dict(get_tweets_csv(csv))
+def generate_tweet(csv_file):
+    begin_words, word_chain = get_markov_dict(get_tweets_csv(csv_file))
     word = random.choice(begin_words)
     ret_str = ''
     for i in range(100):
@@ -49,6 +49,7 @@ def generate_tweet(csv):
             break
         word = random.choice(word_chain[clean_word])
     return ret_str
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

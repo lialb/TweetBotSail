@@ -1,11 +1,16 @@
 import requests
 from requests_oauthlib import OAuth1
-
+import argparse
 import json
 import csv
 import pprint
 import argparse
 from markov_generator import generate_tweet
+
+'''
+This class gets tweets from a specific user and outputs their tweets to a
+csv file
+'''
 
 pp = pprint.PrettyPrinter()
 with open('api_keys.json') as data_file:
@@ -25,8 +30,8 @@ def get_tweets(tweet_handle, writeto):
         'exclude_replies': True,
         'trim_user': True,
     }
-
-    with open(writeto, 'w') as csvfile:
+    #for non-Windows users, remove the encoding='utf-8'
+    with open(writeto, 'w', encoding='utf-8') as csvfile:
         fieldnames = ['id', 'text', 'source']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()

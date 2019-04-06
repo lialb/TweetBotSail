@@ -5,6 +5,10 @@ import time
 from requests_oauthlib import OAuth1
 from markov_generator import generate_tweet
 
+'''
+This class makes tweets using requests, not the tweepy library.
+'''
+
 def make_tweets(csv_file, num_tweets):
     with open('api_keys.json') as f:
         api_keys = json.load(f)
@@ -27,4 +31,3 @@ if __name__ == '__main__':
     parser.add_argument('num_tweets', type=int, nargs='?', default=10, help='the number of tweets to make')
     args = parser.parse_args()
     make_tweets(args.csv_file, args.num_tweets)
-
