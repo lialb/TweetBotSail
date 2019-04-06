@@ -14,6 +14,8 @@ This repository contains a full twitter bot. This allows tweeting from the comma
 
 ## How to use:
 
+Make Sure you install all the python libraries used (e.g. pandas, requests, json, etc.)
+
 1. Make a Twitter account and a Twitter Developer account
 2. Get Twitter API keys and Access tokens within your developer account
 3. Add these keys and tokens to the api_keys.json
