@@ -4,6 +4,7 @@ from requests_oauthlib import OAuth1
 import json
 import csv
 import pprint
+import argparse
 from markov_generator import generate_tweet
 
 pp = pprint.PrettyPrinter()
@@ -41,4 +42,11 @@ def get_tweets(tweet_handle, writeto):
             for status in r.json():
                 writer.writerow({'id': status['id'], 'text': status['full_text'], 'source': status['source']})
 
-get_tweets('neiltyson', 'csv/ndt.csv')
+# get_tweets('neiltyson', 'csv/ndt.csv')
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('tweet_handle', type=str, help='the tweet handle to get tweets from, case insensitive and without the @')
+    parser.add_argument('write_to', type=str, help='what file to write the tweet data to')
+    args = parser.parse_args()
+    get_tweets(args.tweet_handle, args.write_to)
+

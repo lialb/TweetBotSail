@@ -1,6 +1,7 @@
 import random
 import pandas as pd
 import string
+import argparse
 
 TWEET_LENGTH = 280
 
@@ -49,4 +50,8 @@ def generate_tweet(csv):
         word = random.choice(word_chain[clean_word])
     return ret_str
 
-# print(generate_tweet('csv/obama.csv'))
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('csv_file', type=str, help='the csv file to make tweets using')
+    args = parser.parse_args()
+    print(generate_tweet(args.csv_file))
